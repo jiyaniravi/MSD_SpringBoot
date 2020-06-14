@@ -1,0 +1,38 @@
+plugins {
+    id 'org.springframework.boot' version '2.2.2.RELEASE'
+    id 'io.spring.dependency-management' version '1.0.8.RELEASE'
+    id 'java'
+    id 'groovy'
+}
+
+group = 'com.af.msd'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '1.8'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    testImplementation('org.springframework.boot:spring-boot-starter-test') {
+        exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
+    }
+
+    // Spock Framework basic dependencies:
+    testCompile "org.codehaus.groovy:groovy-all:2.4.1"
+    testCompile "org.spockframework:spock-core:1.0-groovy-2.4"
+    testCompile 'com.athaydes:spock-reports:1.3.2'
+
+    // Optional dependencies Spock to use Hamcrest matchers:
+    testCompile "org.hamcrest:hamcrest-core:1.3"
+
+    // To mock classes:
+    testRuntime "cglib:cglib-nodep:3.1"
+    // Use with cglib to mock classes without default constructor:
+    testRuntime "org.objenesis:objenesis:2.1"
+}
+
+test {
+    useJUnitPlatform()
+}
