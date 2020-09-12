@@ -1,6 +1,7 @@
 package com.af.msd.controller.address;
 
 import com.af.msd.common.response.MSDResponse;
+import com.af.msd.common.response.code.AddressResponse;
 import com.af.msd.common.response.code.CommonResponse;
 import com.af.msd.pojo.PinCode;
 import com.af.msd.service.address.AddressService;
@@ -25,11 +26,11 @@ public class AddressController {
 
         try {
             List<PinCode> pinCodes = addressService.getPinCodesByCityId(cityId);
-            return new MSDResponse(CommonResponse.SUCCESS)
+            return new MSDResponse(AddressResponse.RETRIEVE_PIN_CODES_FOR_CITY_SUCCESS)
                     .withResponse(Collections.singletonMap("pinCodes",pinCodes))
                     .build();
         }catch (RuntimeException e){
-            return new MSDResponse(CommonResponse.FAILURE).build();
+            return new MSDResponse(AddressResponse.RETRIEVE_PIN_CODES_FOR_CITY_FAILURE).build();
         }
     }
 
