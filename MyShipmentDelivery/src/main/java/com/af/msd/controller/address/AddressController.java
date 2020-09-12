@@ -2,24 +2,35 @@ package com.af.msd.controller.address;
 
 import com.af.msd.common.response.MSDResponse;
 import com.af.msd.common.response.code.CommonResponse;
-import com.sun.tools.javac.util.List;
+import com.af.msd.pojo.PinCode;
+import com.af.msd.service.address.AddressService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Collections;
+import java.util.List;
 
 @RestController
+@RequestMapping("/address")
 public class AddressController {
 
-    @RequestMapping("/GET_PIN_CODES_FOR_CITY")
-    public MSDResponse getPinCodesForCity(){
+    @Autowired
+    AddressService addressService;
 
-        return new MSDResponse(CommonResponse.SUCCESS)
-                        .withResponse(Collections.singletonMap("Key","Value"))
-                        .withResponseList(List.of(
-                                new MSDResponse().withCode(1).withMessage("1: Message").build(),
-                                new MSDResponse().withCode(2).withMessage("2:Message ").build()
-                        )).build();
+    @GetMapping("/GET_PIN_CODES_FOR_CITY/{cityId}")
+    public MSDResponse getPinCodesForCity(@PathVariable int cityId){
+
+        try {
+            List<PinCode> pinCodes = addressService.getPinCodesByCityId(cityId);
+            return new MSDResponse(CommonResponse.SUCCESS)
+                    .withResponse(Collections.singletonMap("pinCodes",pinCodes))
+                    .build();
+        }catch (RuntimeException e){
+            return new MSDResponse(CommonResponse.FAILURE).build();
+        }
     }
 
     @RequestMapping("/SAVE_ADDRESS")
