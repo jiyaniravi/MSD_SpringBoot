@@ -1,7 +1,6 @@
 -- DBC v1.0
--- By Shipment Delivery Team
--- Date : 20/09/2015 
--- Copy Right : AmbitionFollowers.com
+-- Ravi Jiyani
+-- Date : 09/10/2020
 
 -- Create Database --------------------------------------------------------------------------------------------------------
 DROP DATABASE IF EXISTS myshipmentdelivery;
