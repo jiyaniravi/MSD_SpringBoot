@@ -20,14 +20,13 @@ public class APICallStackLogger {
     public void callToAllTheLayersAPI(){}
 
     @Before("callToAllTheLayersAPI()")
-    public void logCalledAPIBefore(JoinPoint joinPoint){
-        LOG.debug("Start : "+joinPoint.getSignature()+" : With Parameters : "
-                                     +ArrayToStringConverter.getStringFromArrayElements(joinPoint.getArgs()));
-    }
+    public void logCalledAPIBefore(JoinPoint joinPoint){ log(joinPoint, "Start : "); }
 
     @After("callToAllTheLayersAPI()")
-    public void logCalledAPIAfter(JoinPoint joinPoint){
-        LOG.debug("End : "+joinPoint.getSignature()+" : With Parameters : "
-                                   +ArrayToStringConverter.getStringFromArrayElements(joinPoint.getArgs()));
+    public void logCalledAPIAfter(JoinPoint joinPoint){ log(joinPoint, "End : "); }
+
+    private void log(JoinPoint joinPoint, String prefix) {
+        LOG.debug(prefix + joinPoint.getSignature() + " : With Parameters : "
+                         + ArrayToStringConverter.getStringFromArrayElements(joinPoint.getArgs()));
     }
 }
