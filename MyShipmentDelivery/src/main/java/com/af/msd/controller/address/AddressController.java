@@ -26,7 +26,7 @@ public class AddressController {
         try {
             List<PinCode> pinCodes = addressService.getPinCodesByCityId(cityId);
             return new MSDResponse(AddressResponse.RETRIEVE_PIN_CODES_FOR_CITY_SUCCESS)
-                                                    .withResponse(Collections.singletonMap("pinCodes",pinCodes)).build();
+                                                    .withResponse(Collections.singletonMap("pinCodes",pinCodes)).build()
         }catch (RuntimeException e){
             return new MSDResponse(AddressResponse.RETRIEVE_PIN_CODES_FOR_CITY_FAILURE).build();
         }
